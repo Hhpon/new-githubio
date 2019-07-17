@@ -330,6 +330,9 @@ HTML 显示的样式就是由 CSS 来负责的，那么我们如何引入 CSS �
   - “微软雅黑”
   - “宋体”
 - color
+  - red blue green 颜色单词
+  - \#888888 16进制
+  - rgb(red, green, blue)
 - text-align
   - left(default)
   - center
@@ -374,7 +377,7 @@ HTML 显示的样式就是由 CSS 来负责的，那么我们如何引入 CSS �
 </html>
 ```
 
-**结论：四个值的时候从左到右的顺序分别是上边距，右边距，下边距，左边距；即上右下左顺时针的方向**
+**结论：四个值的时候从左到右的顺序分别是上边距，右边距，下边距，左边距；即上右下左顺时针的方向，除了这种方法外，我们还可以直接设置margin-left**
 
 **提问：那么三个值的时候呢？两个、一个呢？**
 
@@ -414,3 +417,90 @@ margin的重要应用-盒子的左右居中
 
 实际宽度：content + padding(左右的加起来) + border-width(左右的加起来) +  margin(左右的加起来)
 可视宽度：content + padding(左右的加起来) + border-width(左右的加起来)
+
+##### 并列的盒子
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1 {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            border: 10px solid .000;
+            margin-bottom: 30px;
+        }
+
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin-top: 20px.
+        }
+    </style>
+</head>
+
+<body>
+    <div class='box1'></div>
+    <div class='box2'></div>
+</body>
+
+</html>
+```
+
+**请问这种情况上下盒子距离多少？**
+
+##### 嵌套的盒子
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+
+        .inner-box {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class='inner-box'></div>
+    </div>
+</body>
+
+</html>
+```
+
+**请问这种情况下两个盒子上边的距离是多少？**
+
+避免的方法
+
+- 为父元素添加border
+- 为父元素添加padding
+- 为父元素添加overflow:hidden(推荐)
+
+**练习**
+
+请完成一个宽高均为100px，内边距为20px，边框为10px，边框颜色为蓝色，外边距为5px的div
