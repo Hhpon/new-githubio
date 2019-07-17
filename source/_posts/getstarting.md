@@ -279,3 +279,138 @@ HTML 显示的样式就是由 CSS 来负责的，那么我们如何引入 CSS �
 **当你的项目复杂到一定程度，你可能会用到选择器组，那么到时候你一定不可避免的遇到选择器的优先级问题。**
 
 [选择器优先级自由阅读](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Specificity)
+
+
+#### CSS 常用属性
+
+##### 基本样式
+
+- width 宽度
+- height 高度
+- background-color 设置盒子的背景颜色
+  - red blue green 颜色单词
+  - \#888888 16进制
+  - rgb(red, green, blue)
+  - rgba (red,green,blue,alpha)
+  - alpha 表示透明度
+- background-image 设置盒子的背景图片
+  - url(1.jpg) 默认状态下图片会平铺
+- background-repeat 
+  - no-repeat 不重复
+  - repeat-x
+  - repeat-y
+- background-size 设置背景图片的大小
+  - x,y (x为宽，y为高)
+- border 边框 （集合样式）
+  - border-width 边框宽度
+  - border-style 边框样式
+    - solid 实线
+    - dashed 虚线
+    - dotted 点线
+  - border-color 边框颜色
+    - red
+    - rgb
+    - \#000000
+
+**练习**
+
+画一个宽为100px,高为100px 背景色为red的盒子，这个盒子的上边框是宽度为10px，样式为实线的，颜色为黑色的边框；右边框是宽度为5px，样式为点线的，颜色为蓝色的边框；下边框是宽度为15px，样式为实线的，颜色为红色的边框，左边没边框。
+
+##### 文字相关
+
+- font-size
+  - 20px
+- font-weight
+  - bold (加粗)
+  - normal
+- font-style
+  - italic (斜体)
+  - normal
+- font-family
+  - “微软雅黑”
+  - “宋体”
+- color
+- text-align
+  - left(default)
+  - center
+  - right
+- text-decoration (文本修饰)
+  - underline;
+  - line-through; 删除线
+  - overline; 上划线
+  - none(default) 
+
+#### CSS 重要应用 — 盒模型
+
+- margin 设置盒子的外边距
+- padding 设置盒子的内边距
+
+其实margin和padding的后面最多可接四个值，如：10px 20px 30px 40px
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: blue;
+            margin: 10px 20px 30px 40px;
+            /* 同理，margin换成padding也是一样的 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">盒子一</div>
+</body>
+
+</html>
+```
+
+**结论：四个值的时候从左到右的顺序分别是上边距，右边距，下边距，左边距；即上右下左顺时针的方向**
+
+**提问：那么三个值的时候呢？两个、一个呢？**
+
+margin的重要应用-盒子的左右居中
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: blue;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">盒子一</div>
+</body>
+
+</html>
+```
+
+{% asset_img 标准盒模型.png 标准盒模型 %}
+
+**只要是网页布局一定会用到盒模型，重点记忆**
+
+##### 盒子可视宽度与实际宽度
+
+实际宽度：content + padding(左右的加起来) + border-width(左右的加起来) +  margin(左右的加起来)
+可视宽度：content + padding(左右的加起来) + border-width(左右的加起来)
