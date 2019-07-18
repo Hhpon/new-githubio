@@ -333,7 +333,7 @@ HTML 显示的样式就是由 CSS 来负责的，那么我们如何引入 CSS �
   - red blue green 颜色单词
   - \#888888 16进制
   - rgb(red, green, blue)
-- text-align
+- text-align 文本的对齐方式
   - left(default)
   - center
   - right
@@ -434,7 +434,7 @@ margin的重要应用-盒子的左右居中
             height: 100px;
             width: 100px;
             background-color: red;
-            border: 10px solid .000;
+            border: 10px solid #000;
             margin-bottom: 30px;
         }
 
