@@ -536,3 +536,79 @@ position: static|relative|absolute|fixed;
 - 提升层级
 
 Z-index：Z轴方向上的层叠定位。但默认情况下，后来者会覆盖前者，此时，如果需要改变层级关系，就要通过改变z-index值来实现。z-index越大优先级越高。 
+
+#### CSS 浮动流
+
+```css
+float: left;
+```
+
+使元素脱离文档流(普通流)，按照指定方向发生移动遇到父级边界或者相邻的浮动元素停下来。
+
+同时会有一个问题困扰着大家，清除浮动。
+
+- 为父元素添加overflow:hidden;这样父元素就有高度了,父元素的高度便不会被破坏；
+- clearfix
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .clearfix:after {
+            content: '.';
+            height: 0;
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clearfix">
+        <div style="float: left;width: 50%;height: 100px;background: green;"></div>
+        <div style="float: left;width: 50%;height: 100px;background: blue;"></div>
+    </div>
+    <div style="height: 200px;width: 100px;background: red;"></div>
+</body>
+
+</html>
+```
+
+
+#### 超链接标签
+
+```html
+<a href='http://www.baidu.com'>点击跳转到百度</a>
+```
+
+href: 页面地址
+
+#### 图片引入
+
+```html
+<img src='./1jpg' />
+```
+
+src: 图片的地址
+height: 设置图片的高度
+width: 设置图片的宽度
+alt: 当图片不显示的时候显示的文字
+
+#### form 表单
+
+```html
+<input type='text' />
+```
+
+type: 常用取值： text、password
+
+```html
+<button>提交</button>
+```
+
