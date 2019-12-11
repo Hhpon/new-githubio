@@ -2,6 +2,7 @@
 title: Jser训练营
 date: 2019-10-16 19:47:34
 tags:
+hidden: true
 ---
 
 ### 认识小程序

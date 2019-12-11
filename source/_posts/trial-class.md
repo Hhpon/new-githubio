@@ -2,7 +2,6 @@
 title: Jser 试听课
 date: 2019-08-13 09:58:11
 tags:
-hidden: true
 ---
 
 ### 试听课内容 - 个人名片
