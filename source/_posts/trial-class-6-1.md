@@ -101,9 +101,15 @@ document.addEventListener('keyup',function(e){
 
 #### 网页、小程序当前的生态环境
 
-正如上面所说，前端开发的生态环境已经相当完善，除了手机端的有赞小程序 UI 组件；还有[手机端有赞网页 UI 组件](https://youzan.github.io/vant/#/zh-CN/)、[PC 端饿了么网页 UI 组件](https://element.eleme.cn/#/zh-CN/component/installation)
+正如上面所说，前端开发的生态环境已经相当完善，除了手机端的有赞小程序 UI 组件；还有[手机端有赞网页 UI 组件](https://youzan.github.io/vant/#/zh-CN/)、[PC 端饿了么网页 UI 组件](https://element.eleme.cn/#/zh-CN/component/installation)、[图标库](https://www.iconfont.cn/)
 
-所以前端开发已经很“接地气了”，把前端的三大基础学好就可以使用这些非常方便的 UI 组件；
+**初学者容易犯的错误：试图去了解组件的结构。**
+
+其实组件可以理解成生活中的一个工具，比如鼠标、电脑、手机，我们不需要去了解其中的具体原理，我们只需要知道怎么使用就可以；组件也是一样，其实不光组件，我们在计算机中的很多东西都和组件有着异曲同工的特点。
+
+所以前端开发已经很“接地气了”，把前端的三大基础学好就可以使用这些非常方便的 UI 组件；就可以简单高效的开发出自己喜欢的页面！
+
+而我们今天就简单的体验一下这种引入“写好的”代码的模式；
 
 #### 基本的 HTML 结构
 
@@ -142,15 +148,14 @@ document.addEventListener('keyup',function(e){
 <meta />
 <header></header>
 <footer></footer>
+<h1></h1>
 <h2></h2>
 <h3></h3>
 <h4></h4>
+<h5></h5>
 <h6></h6>
-<!-- 下方是一会主要用到的 -->
 <div></div>
 <img />
-<h1></h1>
-<h5></h5>
 ```
 
 成对的标签编辑器给我们也提供了快捷键
@@ -172,6 +177,8 @@ document.addEventListener('keyup',function(e){
 ```
 
 _'./'这种字段称为“相对路径”；路径的概念小白可能不太好理解，其实这个“路径”相当于一个地址，类似于我们在电脑上播放本地视频，需要打开指定文件，这个相对路径就是文件的地址_
+
+**总结：路径就是地址，也就是引入哪个文件 => 等同于播放哪个视频文件**
 
 ### 第一个项目：弹跳动画
 
@@ -208,7 +215,83 @@ _'./'这种字段称为“相对路径”；路径的概念小白可能不太好
     <title>Document</title>
   </head>
   <body>
+    <!-- 此处的class相当于给标签起个名字 -->
     <div class="box"></div>
   </body>
 </html>
+```
+
+**第一个项目总结：第一个项目应用的是 html 的基本结构以及 CSS，在本项目中主要是希望能为大家了解 html 与 css 的功能，以及为第二个项目以及明天的爬虫课程做铺垫。有问题可以随时提问呀！**
+
+### 第二个项目：满屏小心心
+
+---
+
+{% asset_img 满屏爱心.gif 小心心 %}
+
+#### ① 先建立 HTML 的基本结构
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    hello world
+  </body>
+</html>
+```
+
+#### ② 在页面中建立爱心的基本结构
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- 此处的id也相当于给标签起个名字 -->
+    <div id="heart"></div>
+  </body>
+</html>
+```
+
+**第二个项目总结：第二个项目中使用了 html、css 和 js，在本项目中我们使用 html 搭建了页面的基本结构，使用 css 装饰了页面样式，使用 js 实现了"爆炸"的交互效果。那么我们使用前端除了网页基本的展示数据还有哪些进阶的功能呢?**
+
+展示类：数据可视化
+数据获取类：网易云重度用户数据分析
+趣味类：有趣的简历
+
+{% asset_img 建模A题.png 搜集数据 %}
+
+这是正在进行东三省建模比赛 A 题，阅读题目可以发现，要做这道题的前提就是搜集数据；历年的数学建模题目中都会有类似的搜集数据的题目，那么我们要如何搜集这成百上千的数据呢？
+
+**答：爬虫**
+
+数据最后存在哪里呢？
+
+**答：表格或者数据库**
+
+此次课程接下来要讲的就是如何使用 python 操作 excel 表格
+
+### 第三个项目：Excel 表格的自动化处理
+
+---
+
+在 python 中基本全都是"组件"的工具，比如我们要用到的 openpyxl、selenium,稍微有点不同的是python中的工具更全面，类似一个工具箱，我们可以从中获取多个数据，比如接下来的这个例子。
+
+上手准备：python 环境、VSCODE 编辑器、openpyxl(python 操控 excel 的包)
+
+```python
+# openpyxl 包的基本介绍
+# load_workbook() 这是一个加载excel表格的函数，括号中需要输入需要解析的文件路径，该函数会返回一个表格的实例
+
 ```
