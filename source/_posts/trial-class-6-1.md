@@ -1,5 +1,5 @@
 ---
-title: Jser 第八期训练营
+title: Jser 第九期训练营
 date: 2020-06-01 19:04:32
 tags:
 description: 2020年暑期正式营开始纳新啦
@@ -286,12 +286,131 @@ _'./'这种字段称为“相对路径”；路径的概念小白可能不太好
 
 ---
 
-在 python 中基本全都是"组件"的工具，比如我们要用到的 openpyxl、selenium,稍微有点不同的是python中的工具更全面，类似一个工具箱，我们可以从中获取多个数据，比如接下来的这个例子。
+在 python 中基本全都是"组件"的工具，比如我们要用到的 openpyxl、selenium,稍微有点不同的是 python 中的工具更全面，类似一个工具箱，我们可以从中获取多个数据，比如接下来的这个例子。
+
+{% asset_img 原始成绩.png 400 原始成绩.png %}
+{% asset_img 成绩.png 400 成绩.png %}
+
+问题背景：现在一个学校的某个班级的成绩表格如上图原始成绩.png，任务是转换成成绩.png;
+
+**分析：其实表格少的话其实很容易就能转换了，试想如果要整理全校的怎么办？初略统计，农大每次智育成绩表格大概有 1600+个表格。**
+
+**代码逻辑分析：使用 python 先打开 excel 文件并读取表格内容，存储到内存后清洗数据并新建一个表格把数据存储进去；**
+
+{% asset_img openpyxl.png 流程.png %}
 
 上手准备：python 环境、VSCODE 编辑器、openpyxl(python 操控 excel 的包)
+
+知识点：python 的重要数据结构 --- 数组
+
+```python
+arr = ['数学','语文','英语','物理','生物','化学','历史']
+# 编程中最基本概念遍历：对数组的每一项进行操作
+# 数组有个很重要的方法：append
+subject.append('地理')
+print(subject)
+for subject in arr:
+  print(subject)
+```
+
+```python
+# 二维数组遍历
+arr1 = [['数学','语文','英语','物理','生物','化学','历史'],['数学','语文','英语','物理','生物','化学','历史'],['数学','语文','英语','物理','生物','化学','历史'],['数学','语文','英语','物理','生物','化学','历史']]
+for arr in arr1:
+  for subject in arr:
+    print(subject)
+```
 
 ```python
 # openpyxl 包的基本介绍
 # load_workbook() 这是一个加载excel表格的函数，括号中需要输入需要解析的文件路径，该函数会返回一个表格的实例
+oldworkbook = load_workbook('作业-原始成绩.xlsx')
+# sheet 的名字
+sheetnames = oldworkbook.sheetnames
+print(sheetnames)
+# sheet名字对应的表格内容
+sheet = oldworkbook[sheetnames[0]]
+print(sheet)
+# 具体的单元格数据
+cell = sheet['A2:G24']
+print(sheet['A2'].value)n
 
+# 清洗数据第一步：提取有用数据
+# 备注：这个地方很绕，初学者很难绕开，小白不要钻牛角尖，我们按照步骤一步步走
+all = []
+for x in cell:
+    row = []
+    for y in x:
+        row.append(y.value)
+    all.append(row[:1]+row[4:])
+print(all)
+
+# Workbook() 这是一个新建excel表格的函数，括号中通常什么都不写；ps：注意字母大小写
+newworkbook = Workbook()
+newsheet = newworkbook.active
+newsheet.title = '清洗后的数据'
+newsheet.append(["学号", "姓名", "检测", "讨论", "成绩"])
+# 我们每一次在newsheet中append都会增加一行数据，试想，如果我们添加30行，那么一个班级的人数是不是就够了
+# newsheet.append(['A07140061', '韩慧鹏', '100', '0', '90'])
+
+for n in all:
+    print(n)
+    studentID = n[0][5:13]
+    studentName = n[0][13:]
+    test = n[1]
+    if n[2] == '-':
+        discuss = 0
+    else:
+        discuss = n[2]
+    score = n[3]
+    newsheet.append([studentID, studentName, test, discuss, score])
+
+newworkbook.save('new作业.xlsx')
+```
+
+### 第四个项目：爬虫 -- “真”小白就能上手的爬虫
+
+---
+
+爬虫的本质其实就是模仿自己在网页中的具体操作进行数据请求的一个过程；
+
+{% asset_img 传统爬虫方式.png 传统爬虫方式.png %}
+
+传统爬虫的难点：需要分析网页请求，需要在控制台中分析多条请求并找出哪些条是需要模拟的
+selenium 爬虫的特点：操作完全是运行在浏览器中，就好像我们自己在操控电脑一样；
+
+{% asset_img selenium.png selenium.png %}
+
+正常在网页上面浏览步骤大致如下，此步骤也是我们一会使用 selenium 的操作；此前我们需要先来了解一下 selenium 这个 python 拓展包
+
+```python
+# selenium 包的基本介绍
+
+# from selenium import webdriver
+# 打开Chrome浏览器
+driver = webdriver.Chrome()
+# 打开网址'https://weixin.sogou.com/'
+driver.get('https://weixin.sogou.com/')
+
+# from selenium.webdriver.support.wait import WebDriverWait
+# WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)
+# driver：WebDriver 的驱动程序(Ie, Firefox, Chrome 或远程)
+# timeout：最长超时时间，默认以秒为单位
+# poll_frequency：休眠时间的间隔（步长）时间，默认为 0.5 秒
+# ignored_exceptions：超时后的异常信息，默认情况下抛 NoSuchElementException 异常
+
+# WebDriverWai()一般由unit()或until_not()方法配合使用
+# until(method, message=’’) 调用该方法提供的驱动程序作为一个参数，直到返回值不为 False。
+# until_not(method, message=’’) 调用该方法提供的驱动程序作为一个参数，直到返回值为 False。
+
+# 等待页面加载出搜索框
+wait = WebDriverWait(driver, 10)
+input = wait.until(EC.presence_of_element_located((By.NAME, 'query')))
+# 搜索框加载出来以后我们键入想要搜索的公众号文章
+input.send_keys('数学建模之路')
+# 点击“搜文章”按钮
+driver.find_element_by_xpath("//input[@class='swz']").click()
+
+# from selenium.webdriver.support import expected_conditions as EC
+# expected_conditions是Selenium的一个模块，selenium.webdriver.support.expected_conditions，可以对网页上元素是否存在
 ```
