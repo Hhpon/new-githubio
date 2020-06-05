@@ -106,6 +106,7 @@ document.addEventListener('keyup',function(e){
 **初学者容易犯的错误：试图去了解组件的结构。**
 
 其实组件可以理解成生活中的一个工具，比如鼠标、电脑、手机，我们不需要去了解其中的具体原理，我们只需要知道怎么使用就可以；组件也是一样，其实不光组件，我们在计算机中的很多东西都和组件有着异曲同工的特点。
+有很多人说 python 简单，其实就是因为 python 有很多工具包，我们只需要知道如何使用工具包就可以；
 
 所以前端开发已经很“接地气了”，把前端的三大基础学好就可以使用这些非常方便的 UI 组件；就可以简单高效的开发出自己喜欢的页面！
 
@@ -383,34 +384,102 @@ selenium 爬虫的特点：操作完全是运行在浏览器中，就好像我�
 
 正常在网页上面浏览步骤大致如下，此步骤也是我们一会使用 selenium 的操作；此前我们需要先来了解一下 selenium 这个 python 拓展包
 
+友情链接：
+[Python + Selenium： expected_conditions 介绍](https://blog.csdn.net/kelanmomo/article/details/82886718)
+[selenium 中 selenium.webdriver.common.by 之 By 的用法](https://blog.csdn.net/gufenchen/article/details/98056959)
+[WebDriver--定位元素的 8 种方式](https://www.cnblogs.com/minieye/p/5803640.html)
+
 ```python
 # selenium 包的基本介绍
 
-# from selenium import webdriver
+import time
+from openpyxl import Workbook
+from selenium import webdriver
 # 打开Chrome浏览器
 driver = webdriver.Chrome()
 # 打开网址'https://weixin.sogou.com/'
 driver.get('https://weixin.sogou.com/')
 
-# from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
+# expected_conditions是Selenium的一个模块
+# selenium.webdriver.support.expected_conditions 可以对网页上元素是否存在，可点击等等进行判断
+# selenium.webdriver.support.expected_conditions.presence_of_element_located 判断一个元素存在于页面中，存在则返回元素本身，不存在则报错。
+
 # WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)
 # driver：WebDriver 的驱动程序(Ie, Firefox, Chrome 或远程)
 # timeout：最长超时时间，默认以秒为单位
 # poll_frequency：休眠时间的间隔（步长）时间，默认为 0.5 秒
 # ignored_exceptions：超时后的异常信息，默认情况下抛 NoSuchElementException 异常
 
-# WebDriverWai()一般由unit()或until_not()方法配合使用
+# WebDriverWait()一般由unit()或until_not()方法配合使用
 # until(method, message=’’) 调用该方法提供的驱动程序作为一个参数，直到返回值不为 False。
 # until_not(method, message=’’) 调用该方法提供的驱动程序作为一个参数，直到返回值为 False。
 
 # 等待页面加载出搜索框
 wait = WebDriverWait(driver, 10)
+# 等待页面加载出name='query'的搜索框
 input = wait.until(EC.presence_of_element_located((By.NAME, 'query')))
 # 搜索框加载出来以后我们键入想要搜索的公众号文章
 input.send_keys('数学建模之路')
 # 点击“搜文章”按钮
 driver.find_element_by_xpath("//input[@class='swz']").click()
 
-# from selenium.webdriver.support import expected_conditions as EC
-# expected_conditions是Selenium的一个模块，selenium.webdriver.support.expected_conditions，可以对网页上元素是否存在
+# 声明一个全局计数器(可有可无)
+num = 0
+
+# 根据使用过程中遇到的问题，网站到第十页之后需要微信扫码，所以我们在此遍历前十页的内容
+for i in range(10):
+  get_news()
+  if i == 9:
+    break
+  driver.find_element_by_id('sogou_next').click()
+# 遍历之后就需要扫码啦
+driver.find_element_by_name('top_login').click()
+# 这个位置很不好理解，但是注意不要应理解，给自己点时间
+# 此处需要校验是否加载出下一页按钮，加载出来说明成功扫码登录
+while True:
+  try:
+  # 可以通过id查找元素尽量通过id查找，准确度更高
+    next_page = driver.find_element_by_id('sogou_next').click()
+    break
+  except:
+    # 此处睡眠5秒，再执行下一操作
+    time.sleep(5)
+
+# 成功登录以后，点击下一页
+next_page.click()
+# 点击下一页之后又需要不断的遍历之后每页的数据，直到最后
+while True:
+  get_news()
+  try:
+    driver.find_element_by_id('sogou_next').click()
+  except:
+    break
+# 关闭浏览器
+driver.quit()
+
+wb.save('Selenium/%s.xlsx' % key)
+
+def get_news():
+  # 获取全局计数器
+  global num
+  time.sleep(1)
+  # 模糊匹配id带有sogou_vr_11002601_box字样的li元素
+  news_list = driver.find_elements_by_xpath(
+        "//li[contains(@id,'sogou_vr_11002601_box')]")
+  for news in news_list:
+    source = news.find_elements_by_xpath('div[2]/div/a')[0].text
+    if key not in source:
+      continue
+    num += 1
+    title = news.find_elements_by_xpath('div[2]/h3/a')[0].text
+    date = news.find_elements_by_xpath('div[2]/div/span')[0].text
+    url = news.find_elements_by_xpath(
+        'div[2]/h3/a')[0].get_attribute('href')
+    print(num, title, date)
+    print('-' * 10)
+    row = [title, date, url]
+    sheet.append(row)
 ```
