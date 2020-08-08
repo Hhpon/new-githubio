@@ -109,7 +109,7 @@ console.log(arr.indexOf(1))
 也可以用于接下来说的添加、替换和删除
 #### 判断在不在数组里:in
 ```
-a in XXX///判断a是否在名为XXX的数组里
+a in XXX//判断a是否在名为XXX的数组里
 ```
 比如arr数组里原先依次是1、2、3、4、5五个数字，调用`1 in arr`将会得到true，调用`0 in arr`将会得到false
 当然这行代码直接执行没有意义，你可以把得出的结论显示在控制台中
@@ -119,11 +119,17 @@ console.log(1 in arr)
 也可以用在判断语句和循环语句中
 ```
 if(1 in arr)
-	do something
+	//do something
 while(1 in arr)
-	do something
+	//do something
 ```
-字符串没有这种用法，但是可以利用*查找字符串首次出现位置*实现
+#### 判断在不在字符串里:includes
+```
+XXX.includes(a)//判断a是否在名为XXX的字符串里
+```
+比如str字符串里原先有123，str1字符串里原先有12，str2字符串里原先有13，调用`str.includes('1')`或`str.includes(str1)`都将会得到true，调用`str.includes('0')`或`str.includes(str2)`都将会得到false
+注意，此方法区分大小写，比如str字符串里原先有abc，调用`str.includes('Abc')`将会得到false
+当然这行代码直接执行也没有意义，你可能会遇到的情况和对应的操作方法同*判断在不在数组里*
 
 ---
 ### 添加
@@ -210,8 +216,76 @@ XXX.sort()//将名为XXX的数组中的数字从小到大排列
 字符串没有排序功能
 
 ---
-### 反转：reverse
+### 反转:reverse
+---
+
 ```
 XXX.reverse()//将名为XXX的数组反转
 ```
-比如arr数组里原先依次是5、2、1、3、4五个数字，执行`arr.sort()`这个代码之后数组里就依次是4、3、1、2、5五个数字了
+比如arr数组里原先依次是5、2、1、3、4五个数字，执行`arr.reverse()`这个代码之后数组里就依次是4、3、1、2、5五个数字了
+
+---
+### 字符串转数组:split
+---
+
+```
+XXX.split(a)//指定的分隔符字符串a将名为XXX的字符串分割成子字符串数组，以这个指定的分割字串a来决定每个拆分的位置
+```
+比如str字符串里原先有abc defxy ghi，调用`str.split(' ')`将会得到一个数组，这个数组里依次是abc，defxy，ghi三个字符串，调用`str.split（'')`将会得到一个长度为13的数组，里面依次是str字符串中的每个字符，调用`str.split('xy')`将会得到一个数组，这个数组里依次是abc def，ghi两个字符串，若指定的分隔字符在字符串里没有出现，比如调用`str.split('z')`或`str.split()`都将会得到一个长度为1的数组，里面是abc defxy ghi这个字符串
+直接执行这些代码没有意义，你需要声明一个数组把得到的的数组存起来
+```
+var newstr=str.split(' ')
+```
+或者把得到的数组显示在控制台中
+```
+console.log(str.split(' '))
+console.log(str.split(' ')[0])
+```
+也可以用在判断语句和循环语句中
+```
+if(str.split(' ')[0] == abc)
+	//do something
+while(str.split(' ')[0] == abc)
+	//do something
+```
+还可以对结果进行数组才有的操作比如`arr.push(str.split(' ')[0])`等
+
+---
+### 字符串大小写转换
+---
+
+#### 转换成大写:toUpperCase
+```
+XXX.toUpperCase()//返回一个新字符串，将名为XXX的字符串中的所有字母转换成大写字母
+```
+比如str字符串里原先有AbcD，调用`str.toUpperCase()`将会得到ABCD，但str字符串里还是AbcD
+所以这行代码直接执行没有意义，你可能会遇到的情况和对应的操作方法同*合并字符串*
+#### 转换成小写:toLowerCase
+```
+XXX.toLowerCase()//返回一个新字符串，将名为XXX的字符串中的所有字母转换成小写字母
+```
+比如str字符串里原先有AbcD，调用`str.toLowerCase()`将会得到abcd，但str字符串里还是AbcD
+所以这行代码直接执行也没有意义，你可能会遇到的情况和对应的操作方法同*合并字符串*
+
+---
+### 字符串去空格
+---
+
+#### 去除头尾空格:trim
+```
+XXX.trim()//返回一个新字符串，为去除名为XXX的字符串开始和结尾的空格
+```
+比如str字符串里原先有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;，调用`str.trim()`将会得到a&nbsp;b&nbsp;&nbsp;c，但str字符串里还是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;
+所以这行代码直接执行没有意义，你可能会遇到的情况和对应的操作方法同*合并字符串*
+#### 去除左侧空格:trimStart
+```
+XXX.trimStart()//返回一个新字符串，为去除名为XXX的字符串中左侧的空格
+```
+比如str字符串里原先有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;，调用`str.trimStart()`将会得到a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;，但str字符串里还是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;
+所以这行代码直接执行也没有意义，你可能会遇到的情况和对应的操作方法同*合并字符串*
+#### 去除右侧空格:trimEnd
+```
+XXX.trimEnd()//返回一个新字符串，为去除名为XXX的字符串中右侧的空格
+```
+比如str字符串里原先有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;，调用`str.trimEnd()`将会得到&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c，但str字符串里还是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;b&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;
+所以这行代码直接执行也没有意义，你可能会遇到的情况和对应的操作方法同*合并字符串*
