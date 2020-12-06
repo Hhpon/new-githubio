@@ -119,6 +119,11 @@ import { str, func } from './demo1'
 export default const str = 'hello world'
 ```
 
+```js
+const str = 'hello world'
+export default str
+```
+
 **使用import导入**
 
 ```js
