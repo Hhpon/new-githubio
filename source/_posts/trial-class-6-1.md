@@ -1,9 +1,8 @@
 ---
-title: Jser 第九期训练营
-date: 2020-06-01 19:04:32
+title: Jser 第十期训练营
+date: 2021-01-14 19:04:32
 tags:
-description: 2020年暑期正式营开始纳新啦
-hidden: true
+description: 2021年寒期正式营开始纳新啦
 ---
 
 ### 机会都是留给有准备的人
