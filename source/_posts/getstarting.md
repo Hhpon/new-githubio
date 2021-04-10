@@ -43,7 +43,7 @@ tags:
 <div>3</div>
 <span>4</span>
 <span>5</span>
-<span>6</span>
+<span>6</span>v
 ```
 
 把这些代码嵌套在 HTML 基本结构的 body 标签里面，我们可以看到 div 类标签的内容会重启一行显示内容；而 span 则不会。
@@ -494,7 +494,7 @@ margin 的重要应用-盒子的左右居中
 文档正常的布局我们称之为普通流，而文档经过定位以后的布局我们称之为定位流；
 
 ```css
-position: static|relative|absolute|fixed;
+position: static|relative|absolute|fixed|sticky;
 ```
 
 ##### position: relative; 相对定位
@@ -514,10 +514,15 @@ position: static|relative|absolute|fixed;
 - 相对定位一般都是配合绝对定位元素使用；
 - 提升层级
 
-##### position: fixed 固定定位
+##### position: fixed; 固定定位
 
 - 与绝对定位的特性基本一致，差别是始终相对整个浏览器窗口进行定位；
 - 提升层级
+
+#### positon: sticky; 粘性定位
+
+- 粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位。
+
 
 Z-index：Z 轴方向上的层叠定位。但默认情况下，后来者会覆盖前者，此时，如果需要改变层级关系，就要通过改变 z-index 值来实现。z-index 越大优先级越高。
 
