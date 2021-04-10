@@ -3,6 +3,7 @@ title: Jser 第十期训练营
 date: 2021-01-14 19:04:32
 tags:
 description: 2021年寒期正式营开始纳新啦
+hidden: true
 ---
 
 ### 机会都是留给有准备的人
